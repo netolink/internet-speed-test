@@ -3,34 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Internet Speed Test</title>
-    <meta name="description" content="Internet Speed Test.">
-
     <style>
         * {
             box-sizing: border-box;
         }
-        html, body {
+
+        html,
+        body {
             margin: 0;
             padding: 0;
             width: 100%;
             min-height: 100%;
-            font-family: Arial, sans-serif;
             background: #ffffff;
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: 650px;
+            border: 0;
         }
     </style>
 </head>
 
 <body>
-    <main class="speed-test">
-        <iframe
-            src="https://netolink.speedtestcustom.com"
-            width="100%"
-            height="650"
-            frameborder="0"
-            title="Internet Speed Test">
-        </iframe>
-    </main>
+    <iframe
+        src="https://netolink.speedtestcustom.com"
+        width="100%"
+        height="650"
+        frameborder="0"
+        title="Internet Speed Test">
+    </iframe>
+
+    <script>
+        (function () {
+            "use strict";
+
+            const allowedParentOrigins = new Set([
+                "https://netolink.co.il",
+                "https://www.netolink.co.il",
+                "https://netolink.com",
+                "https://www.netolink.com"
+            ]);
+
+            if (window.top === window.self) {
+                return;
+            }
+
+            let parentOrigin = "";
+
+            try {
+                if (document.referrer) {
+                    parentOrigin = new URL(document.referrer).origin;
+                }
+            } catch (error) {
+                parentOrigin = "";
+            }
+
+            if (!allowedParentOrigins.has(parentOrigin)) {
+                document.body.innerHTML = "";
+            }
+        })();
+    </script>
 </body>
 </html>
